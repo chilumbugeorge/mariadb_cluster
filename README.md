@@ -1,4 +1,4 @@
-# car_team_race
+# mariadb:10.5.10
 
 *NOTE: 
  - Replication user is already created in the docker-compose file <master-x/secrets/account.sql>
