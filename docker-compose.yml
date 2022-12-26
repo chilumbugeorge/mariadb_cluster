@@ -1,0 +1,104 @@
+version: '3.3'
+services:
+  prod-test-1:
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    container_name: mariadb-test-1
+    command: [ 
+      '--server_id=1',
+      '--gtid_domain_id=1',
+      '--gtid_strict_mode=1',
+      '--auto_increment_offset=1',
+      '--log_bin=1',
+      '--log_slave_updates=1'
+      ]
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'superuser'
+      MYSQL_PASSWORD: 'superpass'
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+    ports:
+      - '33060:3306'
+      - '122:22'
+    expose:
+      - '3306'
+      - '22'
+    volumes:
+      - ./config/secrets:/docker-entrypoint-initdb.d
+      - ./config/conf.d:/etc/mysql/mariadb.conf.d 
+  prod-test-2:
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    container_name: mariadb-test-2
+    command: [ 
+      '--server_id=2',
+      '--gtid_domain_id=2',
+      '--gtid_strict_mode=1',
+      '--auto_increment_offset=2',
+      '--log_bin=1',
+      '--log_slave_updates=1',
+      ]
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'superuser'
+      MYSQL_PASSWORD: 'superpass'
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+    ports:
+      - '33061:3306'
+      - '123:22'
+    expose:
+      - '3306'
+      - '22'
+    volumes:
+      - ./config/secrets:/docker-entrypoint-initdb.d
+      - ./config/conf.d:/etc/mysql/mariadb.conf.d 
+  dev-test-3:
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    container_name: mariadb-test-3
+    command: [ 
+      '--server_id=3',
+      '--gtid_domain_id=3',
+      '--gtid_strict_mode=1',
+      '--auto_increment_offset=3',
+      '--log_bin=1',
+      '--log_slave_updates=1',
+      ]
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'superuser'
+      MYSQL_PASSWORD: 'superpass'
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+    ports:
+      - '33062:3306'
+      - '124:22'
+    expose:
+      - '3306'
+      - '22'
+    volumes:
+      - ./config/secrets:/docker-entrypoint-initdb.d
+      - ./config/conf.d:/etc/mysql/mariadb.conf.d 
+  mariadbtools:
+    container_name: mysqltools
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    container_name: mysqltools
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+    ports:
+      - '33063:3306'
+      - '125:22'
+    expose:
+      - '3306'
+      - '22'
+    volumes:
+      - ./config/secrets:/docker-entrypoint-initdb.d
+      - ./config/conf.d:/etc/mysql/mariadb.conf.d 

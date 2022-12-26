@@ -1,0 +1,3 @@
+CREATE USER 'slave'@'%' IDENTIFIED BY 'slavepass';
+GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
+FLUSH PRIVILEGES;
